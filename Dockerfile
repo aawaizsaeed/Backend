@@ -1,14 +1,10 @@
-# Use a base image with Java runtime environment
-FROM openjdk:17-jdk-alpine
-
-# Set the working directory in the container
+FROM maven:3.8.6-openjdk-17 AS build
 WORKDIR /app
-
-# Copy the Spring Boot JAR file into the container at /app
-COPY target/spring-docker.jar app.jar
-
-# Expose the port that your application runs on
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean install
+FROM openjdk:17-jdk-alpine
+WORKDIR /app
+COPY --from=build /app/target/spring-docker.jar app.jar
 EXPOSE 9898
-
-# Set the entrypoint to run the Spring Boot application
 ENTRYPOINT ["java", "-jar", "app.jar"]
