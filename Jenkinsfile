@@ -25,7 +25,7 @@ pipeline {
                 }
             }
         }
-        stage('Build') {
+        stage('Building') {
             steps {
                 script {
                     def imageTag = "latest-${env.BUILD_NUMBER}"
