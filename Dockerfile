@@ -1,4 +1,4 @@
-FROM maven:3.8.6-jdk-17 AS build
+FROM openjdk:8-jdk-alpine AS build
 WORKDIR /app
 COPY pom.xml .
 COPY src ./src
