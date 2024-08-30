@@ -21,6 +21,13 @@ pipeline {
         stage('Build') {
             steps {
                 script {
+                    sh 'mvn clean install'
+                }
+            }
+        }
+        stage('Build') {
+            steps {
+                script {
                     def imageTag = "latest-${env.BUILD_NUMBER}"
                     echo "Building Docker image with tag: ${imageTag}"
                     sh "docker build -t ${DOCKER_BE_IMAGE}:${imageTag} ."
